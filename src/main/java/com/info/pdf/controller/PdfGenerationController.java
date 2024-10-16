@@ -18,7 +18,7 @@ public class PdfGenerationController {
     private PdfGenerationService pdfGenerationService;
 
     @GetMapping(value = "/pdf")
-    public void generate() throws IOException {
+    public void generate() {
         pdfGenerationService.generateUsingPdfBox();
     }
 

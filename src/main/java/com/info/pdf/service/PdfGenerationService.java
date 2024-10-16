@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 public interface PdfGenerationService {
 
 
-     void generateUsingPdfBox() throws IOException;
+     void generateUsingPdfBox();
 
      void generateUsingItextPdf();
 }

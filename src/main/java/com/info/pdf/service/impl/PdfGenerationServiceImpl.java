@@ -21,21 +21,25 @@ import java.util.stream.Stream;
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     @Override
-    public void generateUsingPdfBox() throws IOException {
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        document.addPage(page);
+    public void generateUsingPdfBox() {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
 
-        PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 15);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 15);
 
-        contentStream.beginText();
-        contentStream.showText("Hello World, my first pdf");
-        contentStream.endText();
-        contentStream.close();
+            contentStream.beginText();
+            contentStream.showText("Hello World, my first pdf");
+            contentStream.endText();
+            contentStream.close();
 
-        document.save("file/pdfBoxHelloWorld.pdf");
-        document.close();
+            document.save("file/pdfBoxHelloWorld.pdf");
+            document.close();
+        } catch (Exception e) {
+           // e.printStackTrace();
+        }
     }
 
     @Override
@@ -56,7 +60,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
             addCustomRows(table);
             document.add(table);
             document.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -77,6 +81,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         table.addCell("row 1, col 2");
         table.addCell("row 1, col 3");
     }
+
     private void addCustomRows(PdfPTable table)
             throws URISyntaxException, BadElementException, IOException {
 //        Path path = Paths.get(ClassLoader.getSystemResource("Java_logo.png").toURI());
