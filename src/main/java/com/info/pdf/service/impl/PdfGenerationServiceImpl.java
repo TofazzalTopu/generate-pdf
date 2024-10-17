@@ -1,10 +1,12 @@
 package com.info.pdf.service.impl;
 
 import com.info.pdf.service.PdfGenerationService;
-import com.itextpdf.text.*;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -12,11 +14,9 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.springframework.stereotype.Service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
@@ -38,31 +38,31 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
             document.save("file/pdfBoxHelloWorld.pdf");
             document.close();
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
     @Override
     public void generateUsingItextPdf() {
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("pdf/iTextHelloWorld.pdf"));
-
-            document.open();
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-            Chunk chunk = new Chunk("Hello World, generated my first pdf", font);
-
-            document.add(chunk);
-
-            PdfPTable table = new PdfPTable(3);
-            addTableHeader(table);
-            addRows(table);
-            addCustomRows(table);
-            document.add(table);
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream("pdf/iTextHelloWorld.pdf"));
+//
+//            document.open();
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//            Chunk chunk = new Chunk("Hello World, generated my first pdf", font);
+//
+//            document.add(chunk);
+//
+//            PdfPTable table = new PdfPTable(3);
+//            addTableHeader(table);
+//            addRows(table);
+//            addCustomRows(table);
+//            document.add(table);
+//            document.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void addTableHeader(PdfPTable table) {
@@ -82,8 +82,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         table.addCell("row 1, col 3");
     }
 
-    private void addCustomRows(PdfPTable table)
-            throws URISyntaxException, BadElementException, IOException {
+    private void addCustomRows(PdfPTable table) {
 //        Path path = Paths.get(ClassLoader.getSystemResource("Java_logo.png").toURI());
 //        Image img = Image.getInstance(path.toAbsolutePath().toString());
 //        img.scalePercent(10);
@@ -103,4 +102,5 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         verticalAlignCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
         table.addCell(verticalAlignCell);
     }
+
 }
